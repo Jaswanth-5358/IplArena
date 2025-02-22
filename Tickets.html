@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Ticket</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #162938; /* Dark Blue */
+    padding: 30px 30px; /* Increased padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    height: 80px; /* Increased height */
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: 1.2px;
+            text-align: center;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            right: -250px;
+            background: #162938;
+            padding-top: 80px;
+            transition: 0.3s;
+            color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #162938;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        .website-title {
+    text-align: center;
+}
+
+.website-title h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 5em;
+    font-weight: bold;
+    color: #162938;
+    margin-bottom: 10px;
+}
+
+.website-title p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    color: #162938;
+    display: inline-block;
+    margin-left: 80px; /* Adjust this value as needed */
+}
+
+
+
+        /* Ticket Design */
+        .ticket-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .ticket {
+            width: 600px;
+            height: 250px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .left {
+            background: #0078ff;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .left .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .right {
+            width: 60%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .details {
+            font-size: 16px;
+        }
+
+        .barcode {
+            width: 100%;
+            height: 50px;
+            background: repeating-linear-gradient(
+                90deg,
+                black 0px,
+                black 2px,
+                white 2px,
+                white 4px
+            );
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>TATA INDIAN PREMIER LEAGUE - 2025</h1>
+        <span class="menu-icon" onclick="openSidebar()">&#9776;</span>
+    </div>
+    
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">×</span>
+        <a href="./Home.html" target="_blank">Home</a>
+        <a href="./Matches.html"target="_blank">Matches</a>
+        <a href="#"target="_blank">Teams</a>
+        <a href="#"target="_blank">Venues</a>
+        <a href="./Home.html"target="_blank">Contact</a>
+    </div>
+
+    <!-- Website Title -->
+    <div class="website-title">
+        <h1>IPL Arena</h1>
+        <p><em>Your Gateway to the Ultimate Cricketing Experience!</em></p>   
+    </div>
+    <!-- Ticket -->
+    <div class="ticket-container">
+        <div class="ticket">
+            <div class="left">
+                <div class="title">IPL 2025</div>
+            </div>
+            <div class="right">
+                <div class="details">
+                    <p><strong>Match:</strong> <span id="match"></span></p>
+                    <p><strong>Stadium:</strong> <span id="stadium"></span></p>
+                    <p><strong>Date:</strong> <span id="date"></span></p>
+                    <p><strong>Seats:</strong> <span id="seats"></span></p>
+                </div>
+                <div class="barcode"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").style.right = "0";
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.right = "-250px";
+        }
+
+        function generateTicket(match, stadium, date, seats) {
+            document.getElementById("match").textContent = match;
+            document.getElementById("stadium").textContent = stadium;
+            document.getElementById("date").textContent = date;
+            document.getElementById("seats").textContent = seats.join(", ");
+        }
+
+        // Example ticket data (this should come from your booking system dynamically)
+        const matchData = "Mumbai Indians vs Chennai Super Kings";
+        const stadiumData = "Wankhede Stadium";
+        const dateData = "March 25, 2025";
+        const seatNumbers = ["A1", "A2", "A3"];
+        
+        generateTicket(matchData, stadiumData, dateData, seatNumbers);
+    </script>
+</body>
+</html>
